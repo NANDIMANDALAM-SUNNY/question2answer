@@ -59,7 +59,7 @@ const getAllQuestions =  async (req, res) => {
     message: "Error in retrieving questions",
     error: "Bad request",
   };
-  let sort = req.query.sort || 1;
+  let sort = req.query.sort || -1;
   QuestionDB.aggregate([
     {
       $sort:{created_at:parseInt(sort)},
