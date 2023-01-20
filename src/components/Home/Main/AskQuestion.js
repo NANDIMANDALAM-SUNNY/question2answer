@@ -6,6 +6,7 @@ import {useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { store } from '../../../App';
 import FileBase64  from 'react-file-base64'
+import { url } from '../../../config/config';
 
 
 
@@ -33,7 +34,7 @@ const handleAddQuestion =async (e) =>{
       questionphoto:img
     }
     console.log(object)
-    await axios.post("https://question-qjn9.onrender.com/addquestion", object)
+    await axios.post(`${url}addquestion`, object)
     .then((res) => {
       // console.log(res.data);
       setLoading(false)

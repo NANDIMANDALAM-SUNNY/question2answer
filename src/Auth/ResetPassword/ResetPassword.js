@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { url } from '../../config/config';
 
 
 const ResetPassword = () => {
@@ -16,7 +17,7 @@ const ResetPassword = () => {
 
 
 const verifyToken = async (req,res)=>{
-    await axios.get(`https://question-qjn9.onrender.com/users/reset-password/${token}`)
+    await axios.get(`${url}users/reset-password/${token}`)
       .then((res)=>{
         console.log(res.data)
         setVerify(res.data.message)

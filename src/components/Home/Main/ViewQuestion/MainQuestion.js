@@ -9,6 +9,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import '../../css/viewquestion.css'
 import {store} from '../../../../App'
+import { url } from '../../../../config/config';
 
 const  MainQuestion = () => {
   const {id} = useParams()
@@ -21,7 +22,7 @@ const  MainQuestion = () => {
 const getSingleQuestion =async () =>{
   try {
     await axios
-        .get(`https://question-qjn9.onrender.com/question/${id}`)
+        .get(`${url}question/${id}`)
         .then((res) => 
         {
           console.log(res.data[0])
@@ -43,7 +44,7 @@ const getSingleQuestion =async () =>{
         user: profile._id,
         };
         await axios
-          .post("https://question-qjn9.onrender.com/addanswer", body)
+          .post(`${url}addanswer`, body)
           .then(() => {
             alert("Answer added successfully");
             setAnswer("");
@@ -64,7 +65,7 @@ const getSingleQuestion =async () =>{
         comment: comment,
         user: profile._id,
       };
-      await axios.post(`https://question-qjn9.onrender.com/addcomment/${id}`, body)
+      await axios.post(`${url}addcomment/${id}`, body)
       .then((res) => {
         setComment("");
         setShow(false);

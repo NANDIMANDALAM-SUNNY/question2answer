@@ -21,12 +21,8 @@ function App() {
  
  
   useEffect(() => {
-
   }, [])
   
-
-
-
 
   return (
     <>

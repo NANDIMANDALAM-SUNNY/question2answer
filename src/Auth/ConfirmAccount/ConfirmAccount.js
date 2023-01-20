@@ -3,13 +3,14 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { url } from '../../config/config'
 
 const ConfirmAccount = () => {
 const [confirm,setConfirm] = useState("")
 const {confirmationToken} = useParams()
 const navigate = useNavigate()
 const confirmAccount = async ()=>{
-   await axios.get(`https://question-qjn9.onrender.com/users/confirmAccount/${confirmationToken}`)
+   await axios.get(`${url}users/confirmAccount/${confirmationToken}`)
    .then((res)=>{
     console.log(res.data.message)
     setConfirm(res.data.message)
@@ -19,7 +20,7 @@ const confirmAccount = async ()=>{
     useEffect(() => {
         confirmAccount()
     }, [])
-    // if(confirm ==="Success" || confirm ==="User Already Verified") { navigate("/login")}
+    
    
     
 console.log(confirm)

@@ -19,6 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import FileBase64  from 'react-file-base64'
 import './register.css'
+import { url } from "../../config/config";
 
 
 const RootStyle = styled("div")({
@@ -85,7 +86,7 @@ const Register = () => {
     },
     validationSchema: signUpSchema,
     onSubmit :async (values,action)=>{
-      await  axios.post("https://question-qjn9.onrender.com/users/register",{...values,"profile":img})
+      await  axios.post(`${url}users/register`,{...values,"profile":img})
         .then((res)=>{
           setToken(res.data.data)
           setNotification(res.data.message)
@@ -262,7 +263,7 @@ notifications()
                 onClick={handleSubmit}
                 variant="contained"
                 >
-                  Login
+                  Signup
               </Button>
           </Box>
         </Box>

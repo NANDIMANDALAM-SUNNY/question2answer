@@ -3,6 +3,7 @@ import {Box, Button, Card, CardContent, CardMedia, Grid, TextField, Typography} 
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { url } from '../../config/config';
 
 
 const ForgotPassword = () => {
@@ -12,7 +13,7 @@ const ForgotPassword = () => {
     const handleSubmit =async ()=>{
           console.log(email)
           setEmail('')
-        await axios.post(`https://question-qjn9.onrender.com/users/forgot-password`, {"email":email})
+        await axios.post(`${url}users/forgot-password`, {"email":email})
         .then((res) => {
             setNotification(res.data.message)
         }).catch((err) => {

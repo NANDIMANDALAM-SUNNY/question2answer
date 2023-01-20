@@ -17,6 +17,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { store } from '../../App';
 import logo from './logo.png'
+import { url } from '../../config/config';
 
 const settings = ['Logout'];
 
@@ -43,7 +44,7 @@ function Navbar() {
 
   const getProfile = async ()=>{
     try {
-        await axios.get("https://question-qjn9.onrender.com/users/getProfile",{
+        await axios.get(`${url}users/getProfile`,{
         headers: { "jwt-token" : token }
       }).then(res=>setProfile(res.data.data))
     } catch (error) {

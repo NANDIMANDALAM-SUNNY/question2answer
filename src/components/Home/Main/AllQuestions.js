@@ -6,6 +6,7 @@ import { store } from "../../../App";
 import axios from "axios";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { url } from "../../../config/config";
 
 
 const  AllQuestions = ({ data }) => {
@@ -14,7 +15,7 @@ const  AllQuestions = ({ data }) => {
   const handleClickVotes = async (msg) =>{
     
     try {
-      await axios.get(`https://question-qjn9.onrender.com/updatevote/${data._id}/${msg}`)
+      await axios.get(`${url}updatevote/${data._id}/${msg}`)
       .then((res)=>console.log(res.data))
       setVotes(!votes)
     } catch (error) {

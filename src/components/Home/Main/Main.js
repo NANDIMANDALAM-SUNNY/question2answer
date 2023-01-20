@@ -4,6 +4,7 @@ import AllQuestions from './AllQuestions'
 import '../css/main.css'
 import axios from 'axios'
 import { store } from '../../../App'
+import { url } from '../../../config/config'
 
 const Main = () => {
 
@@ -12,7 +13,7 @@ const Main = () => {
 const {votes } = useContext(store)
   const fetchQuestions = async ( )=>{
     try {
-      await axios.get(`https://question-qjn9.onrender.com/allquestions?sort=${sort}`).then((res) => {
+      await axios.get(`${url}allquestions?sort=${sort}`).then((res) => {
         setQuestions(res.data);
         console.log(res.data)
       });
