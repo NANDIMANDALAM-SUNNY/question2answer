@@ -24,7 +24,7 @@ const registerMail = async (name,email,confirmationToken)=>{
              <h3>Thank you for joining with us</h3>
                  <p>You will get notified for the latest news and updates</p>
                 //  verificationCode
-                <button style="padding:10px;background-color:green;color:white;border:none" > <a style="color:white" href="http://localhost:3000/confirmAccount/${confirmationToken}"  target=_blank>Confirm Your account</a></button>
+                <button style="padding:10px;background-color:green;color:white;border:none" > <a style="color:white" href="https://question2answer.netlify.app/confirmAccount/${confirmationToken}"  target=_blank>Confirm Your account</a></button>
                  <img width="300px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQKfVYiWBAIiYbX252T8tlMEDMoOZdTWf52sv3mFFV&s"  />
              </div>
          <p style="color:grey">You're receiving this email because this gmail account is associated with us.</p>
@@ -69,7 +69,7 @@ const sendResetpasswordMail = async (name,email,token)=>{
              to: email,
              subject: "Reset Password",
              text: "Hello world?", // plain text body
-             html: `<p>Hiii ${name},Please copy the link  <a href="http://localhost:3000/resetpassword/${token}"  target=_blank>click here </a>  and reset your password</p> `
+             html: `<p>Hiii ${name},Please copy the link  <a href="https://question2answer.netlify.app/resetpassword/${token}"  target=_blank>click here </a>  and reset your password</p> `
      }
       transporter.sendMail(mailOptions, function(error, response) {
                   if (error) {
