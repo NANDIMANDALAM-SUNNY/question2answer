@@ -7,27 +7,35 @@ import AskMeAnything from './AskMeAnything';
 const MainChat = () => {
 
 const configuration = new Configuration({
-  apiKey: "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",
+  
 });
 const openai = new OpenAIApi(configuration);
 const [option, setOption] = useState({});
 const [result, setResult] = useState("");
 const [input, setInput] = useState("");
+const [example,setExample] = useState();
+const [loading,setLoading] = useState(false)
 const selectOption = (option) => {
   setOption(option);
+  console.log(example)
 };
+const setExampleStuff = (examples)=>{
+  setExample(examples)
+}
 const doStuff =async ()=>{
+  setLoading(true)
   let object = { ...option, prompt: input };
   const response = await openai.createCompletion(object);
   setResult(response.data.choices[0].text);
+  setLoading(false);
 }
-
+console.log(example)
   return (
     <>
-        {Object.values(option).length === 0 ?<>
-
-        <OptionSelection arrayItems={arrayItems} selectOption={selectOption}/> 
-        </>:<AskMeAnything doStuff={doStuff} setInput={setInput} result={result} />
+        {
+          Object.values(option).length === 0 ?<>
+            <OptionSelection arrayItems={arrayItems} selectOption={selectOption} setExampleStuff={setExampleStuff}/> 
+        </>:<AskMeAnything doStuff={doStuff} setInput={setInput} example={example} loading={loading} result={result} />
         }
     </>
   )

@@ -9,16 +9,22 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
-const OptionSelection = ({arrayItems,selectOption }) => {
+const OptionSelection = ({arrayItems,selectOption ,setExampleStuff}) => {
+const handleClick = (selectedOption,example)=>{
+  selectOption(selectedOption)
+  setExampleStuff(example);
+}
+
   return (
     <>
       <Grid container  >
         {
           arrayItems.map((item) => {
+            
           return (
             <>
             <Grid sx={{padding:"30px"}}  item xs={12} md={4} lg={4} >
-              <Card  onClick={() => selectOption(item.option)}>
+              <Card  onClick={() => handleClick(item.option,item.example)}>
                 <CardContent   >
                 <Box sx={{display:"flex"}}>
                   <Box  sx={{display:"inline-block",
@@ -28,6 +34,7 @@ const OptionSelection = ({arrayItems,selectOption }) => {
                               color:"white"                              
                               }} >
                               {item.icon}
+                              
                     </Box>
                     <Box>
                     <Typography sx={{fontWeight:"700",marginBottom:"10px"}} variant="p">{item.name}</Typography>

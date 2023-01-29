@@ -141,8 +141,12 @@ const handlelogout = () =>{
 
               />
           </Box>
-          <Typography sx={{cursor:"pointer"}} onClick={()=>navigate('/trysomethingnew')} >Try SomeThing New</Typography>
+          <Box sx={{marginRight:"20px"}}>
+          <Typography sx={{cursor:"pointer"}} onClick={()=>navigate('/trysomethingnew')} >Super</Typography>
+          </Box>
+          <Box sx={{marginRight:"20px"}}>
           <Typography sx={{cursor:"pointer"}} onClick={()=>navigate('/services')} >Services</Typography>
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

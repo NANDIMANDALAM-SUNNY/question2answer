@@ -7,15 +7,19 @@ import axios from 'axios';
 import { motion } from "framer-motion";
 
 
-const style = {
+
+  const styles = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
-    p: 4,
-  };
+    backgroundColor: "#fff",
+    color: "#000",
+    textAlign: "center",
+    borderRadius: "20px",
+    padding: "30px 30px 70px",
+  }
 
 const ModalPopup = ({open,setOpen}) => {
     const handleOpen = () => setOpen(true);
@@ -45,9 +49,8 @@ const ModalPopup = ({open,setOpen}) => {
         aria-describedby="modal-modal-description"
       >
         <motion.div
-         
         >
-        <Box  sx={style}>
+        <Box  sx={styles}>
           <Typography variant='h5' id="modal-modal-title"  component="h2">
             {quote.text}
           </Typography>
