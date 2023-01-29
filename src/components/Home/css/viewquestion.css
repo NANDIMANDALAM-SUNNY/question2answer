@@ -16,16 +16,19 @@
     display: flex;
     align-items: center;
     font-size: small;
+    flex-direction: row;
+    justify-content: space-around;
   }
   
   .info > p {
-    color: rgba(0, 0, 0, 0.4);
-    margin: 0 10px;
+    color: rgba(0, 0, 0, 0.4) !important
+    ;
+    margin: 0 10px !important;
   }
   
   .info > p > span {
-    color: rgba(0, 0, 0, 0.8);
-    margin: 0 5px;
+    color: rgba(0, 0, 0, 0.8) !important;
+    margin: 0 5px !important;
   }
   
   .arrow {

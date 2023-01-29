@@ -7,6 +7,8 @@ import axios from "axios";
 import { store } from '../../../App';
 import FileBase64  from 'react-file-base64'
 import { url } from '../../../config/config';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -18,7 +20,6 @@ const AskQuestion = () => {
   const [body,setBody]  = useState("")
   const [loading,setLoading] = useState(false)
   const [img,setImg] = useState("")
-  const[file,setFile] = useState("")
   const handleChangeImage =async (e)=>{
    setImg(e.target.value, e.target.value);
  }
@@ -33,13 +34,22 @@ const handleAddQuestion =async (e) =>{
       body,
       questionphoto:img
     }
-    console.log(object)
     await axios.post(`${url}addquestion`, object)
     .then((res) => {
-      // console.log(res.data);
       setLoading(false)
-      alert("Question added successfully");
-      navigate('/')
+      toast.success("Successfully added Question", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
+        setTimeout(() => {
+          navigate('/')
+        }, 3000);
     })
     .catch((err) => {
       console.log(err);
@@ -79,8 +89,8 @@ useEffect(()=>{
                 />
               </Box>
             </Box>
-            <div className="question-option">
-              <div className="title">
+            <Box className="question-option">
+              <Box className="title">
                 <h3 style={{marginBottom:"15px"}} >Body</h3>
                 <small style={{marginBottom:"15px"}} >
                   Include all the information someone would need to answer your
@@ -88,31 +98,29 @@ useEffect(()=>{
                 </small>
 
                 <Box  sx={{display:"flex"}} >
-              <Box >
-                <FileBase64 className='custom-file-input' type="file" name='img' multiple={false} onDone={({base64}) => setImg( base64)}  onChange={handleChangeImage}/>
+              <Box style={{marginBottom:'20px'}}>
+                <FileBase64  type="file" name='img' multiple={false} onDone={({base64}) => setImg( base64)}  onChange={handleChangeImage}/>
               </Box>
               <Box>
-                <img src={img} style={{marginLeft:"20px",width:"100px"}}/>
+                <img src={img} style={{marginLeft:"10px",width:"100px"}}/>
 
               </Box>
             </Box>
-
                 <TextareaAutosize
                     style={{padding:'10px'}}
                     aria-label="empty textarea"
                     placeholder="Give some information about question"
-                    // style={{ width: 200 }}
                     minRows={10}
                     value={body}
                   onChange={(e) => setBody(e.target.value)}
 
                   />
-              </div>
-            </div>
-            <div className="question-option">
-              <div className="title">
+              </Box>
+            </Box>
+            <Box className="question-option">
+              <Box className="title">
                 <h3>Tags</h3>
-                <small>
+                <small style={{marginBottom:"6px"}} >
                   Add up to 5 tags to describe what your question is about
                 </small>
                 <TagsInput
@@ -121,8 +129,8 @@ useEffect(()=>{
                   name="tags"
                   placeHolder="press enter to add new tag"
                 />
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Box>
         </Box>
 
@@ -132,7 +140,8 @@ useEffect(()=>{
          } 
         </Button>
       </Box>
-    </Box>
+    </Box>`
+    <ToastContainer />
    </>
   )
 }

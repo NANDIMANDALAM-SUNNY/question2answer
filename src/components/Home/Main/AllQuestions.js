@@ -53,7 +53,7 @@ const  AllQuestions = ({ data }) => {
           <div style={{maxWidth: "90%",backgroundColor:"#F6F6F6",height:"auto",borderRadius:"10px",padding:"10px"}} >
             <div>{data?.body.slice(0,160)}</div>
           </div>
-            <img src={data?.questionphoto} style={{width:"100%",marginTop:"20px"}}/>
+            <img src={data?.questionphoto} style={{width:"60%",height:"60%",marginTop:"20px"}}/>
           <div style={{  display: "flex",  }} >
                 {
                   data?.tags?.map((item)=>(

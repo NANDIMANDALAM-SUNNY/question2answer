@@ -1,24 +1,78 @@
 // import { Avatar } from "@material-ui/core";
-import { Avatar, TextareaAutosize } from '@mui/material'
+import { Avatar, Backdrop, Box, Button, Fade, Modal, TextareaAutosize, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from "react";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import HistoryIcon from '@mui/icons-material/History';
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import '../../css/viewquestion.css'
 import {store} from '../../../../App'
 import { url } from '../../../../config/config';
+import {
+  WhatsappShareButton,
+  WhatsappIcon,
+  TelegramShareButton,
+  TelegramIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  EmailShareButton,
+  EmailIcon,
+} from 'react-share';
+import { makeStyles } from '@mui/styles';
+import ShareIcon from '@mui/icons-material/Share';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+
+const useStyles = makeStyles(() => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  paper: {
+    zIndex:1000
+  },
+  icon:{
+    marginLeft:"auto",
+    marginTop:"10px",
+    display:"flex",
+    // flexDirection:"column",
+    fontSize:"30px",
+    
+  },
+  formControl: {
+    margin: "10px",
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: "20px",
+    
+  },
+}));
+
 
 const  MainQuestion = () => {
   const {id} = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const [questionData, setQuestionData] = useState();
   const [answer, setAnswer] = useState("");
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
   const {profile,token} = useContext(store)
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 const getSingleQuestion =async () =>{
   try {
     await axios
@@ -83,19 +137,24 @@ const getSingleQuestion =async () =>{
       navigate('/login')
     }
   }, [id]);
+  
+  const [isCopied, setIsCopied] = useState(false);
+const handleCopy = ()=>{
+  console.log(window.location.href)
+  
 
-
+}
   return (
-    <div className="view-main">
-      <div className="main-container">
-        <div className="main-top">
-          <h2 className="main-question">{questionData?.title} </h2>
+    <Box className="view-main">
+      <Box className="main-container">
+        <Box className="main-top">
+          <Typography variant='h2' className="main-question">{questionData?.title} </Typography>
           <Link to="/addquestion">
-            <button>Ask Question</button>
+            <Button  variant="contained"  onClick={()=>navigate("/addquestion")} >Ask Question</Button>
           </Link>
-        </div>
-        <div className="main-desc">
-          <div className="info">
+        </Box>
+        <Box className="main-desc">
+          <Box className="info">
             <p>
               Asked
               <span>{new Date(questionData?.created_at).toLocaleString()}</span>
@@ -106,32 +165,84 @@ const getSingleQuestion =async () =>{
             <p>
               Viewed<span>{questionData?.views}</span>
             </p>
-          </div>
-        </div>
-        <img src={questionData?.questionphoto} style={{width:"100%",marginTop:"20px"}} />
-        <div className="all-questions">
-          <div className="all-questions-container">
-            <div className="question-answer">
+            <Button onClick={handleOpen}  ><ShareIcon /></Button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+                >
+                <Fade in={open}>
+                  <div className={classes.paper}>
+                  <ContentCopyIcon 
+                    style={{fontSize:"60px !important",
+                    position:"relative",
+                    backgroundColor:"#89CFF0",
+                    padding:"10px",
+                    borderRadius:"50%",
+                   right:"10px"
+                   }}
+                   onClick={handleCopy}
+                    />
+                    <WhatsappShareButton
+                      // url={srcDoc}
+                      // quote={srcDoc}
+                      hashtag={'#Coding'}
+                    >
+                      <WhatsappIcon size={40} round={true} />
+                    </WhatsappShareButton>
+                 
+
+                    <TelegramShareButton
+                        //  url={srcDoc}
+                        // quote={srcDoc}
+                        hashtag={'#Coding'}
+                    >
+                    <TelegramIcon size={40} round={true} />
+                    </TelegramShareButton>
+                    <LinkedinShareButton
+                        // url={srcDoc}
+                        // quote={srcDoc}
+                        hashtag={'#Coding'}
+                    >
+                      <LinkedinIcon size={40} round={true} />
+                    </LinkedinShareButton>
+
+            </div>
+                </Fade>
+              </Modal>
+          </Box>
+        </Box>
+        <img src={questionData?.questionphoto} style={{width:"50%",height:"50%",marginTop:"20px"}} />
+        <Box className="all-questions">
+          <Box className="all-questions-container">
+            <Box className="question-answer">
                 	<p>{questionData?.body}</p>
-              <div className="author">
+              <Box className="author">
                 <small>
                   asked {new Date(questionData?.created_at).toLocaleString()}
                 </small>
-                <div className="auth-details">
+                <Box className="auth-details">
                   <Avatar  src={questionData?.userDetails[0]?.profile} />
-                  <p>
+                  <Typography variant='p'>
                     {questionData?.userDetails[0]?.name
                       ? questionData?.userDetails[0]?.name
-                      : "Natalia lee"}
-                  </p>
-                </div>
-              </div>
-              <div className="comments">
-                <div className="comment">
+                      : "Shalem Raju"}
+                  </Typography>
+                </Box>
+              </Box>
+              <Box className="comments">
+                <Box className="comment">
                 {questionData?.comments.length >0 ? <h2>Comments for this question</h2> : null}
                   {questionData?.comments &&
                     questionData?.comments.map((_qd) => (
-                      <p key={_qd?._id}>
+                      <Typography variant='p' key={_qd?._id}>
                         {_qd.comment}{" "}
                         
                         <span>
@@ -141,12 +252,12 @@ const getSingleQuestion =async () =>{
                         <small>
                           {new Date(_qd.created_at).toLocaleString()}
                         </small>
-                      </p>
+                      </Typography>
                     ))}
-                </div>
-                <p onClick={() => setShow(!show)}>Add a comment</p>
+                </Box>
+                <Typography variant='p' onClick={() => setShow(!show)}>Add a comment</Typography>
                 {show && (
-                  <div className="title">
+                  <Box className="title">
                     <TextareaAutosize
                       style={{
                         margin: "5px 0px",
@@ -169,14 +280,14 @@ const getSingleQuestion =async () =>{
                     >
                       Add comment
                     </button>
-                  </div>
+                  </Box>
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div  style={{ flexDirection: "column",  }} className="all-questions">
-          <p
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        <Box  style={{ flexDirection: "column",  }} className="all-questions">
+          <Typography variant='p'
             style={{
               marginBottom: "20px",
               fontSize: "1.3rem",
@@ -185,41 +296,41 @@ const getSingleQuestion =async () =>{
           >
            {questionData?.answerDetails.length}  Answers
            
-          </p>
+          </Typography>
           {questionData?.answerDetails.map((_q,index) => (
             <>
-              <div
+              <Box
                 style={{borderBottom: "1px solid #eee"}}
                 key={_q._id}
                 className="all-questions-container"
               >
-                <div className="all-questions-left">
-                  <div className="all-options">
-                    <p className="arrow">{index+1}</p>
+                <Box className="all-questions-left">
+                  <Box className="all-options">
+                    <Typography variant='p' className="arrow">{index+1}</Typography>
                     <span>Answer</span>
-                  </div>
-                </div>
-                <div className="question-answer">
+                  </Box>
+                </Box>
+                <Box className="question-answer">
                   {_q.answer}
-                  <div className="author">
+                  <Box className="author">
                     <small>asked {new Date(_q.created_at).toLocaleString()}</small>
-                    <div className="auth-details">
+                    <Box className="auth-details">
                       <Avatar src={_q?.singleuserDetails[0]?.profile} />
                       <p>
                         {_q?.singleuserDetails[0]?.name
                           ? _q?.singleuserDetails[0]?.name
                           : "Natalia lee"}
                       </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
             </>
           ))}
-        </div>
-      </div>
-      <div className="main-answer">
-        <h3
+        </Box>
+      </Box>
+      <Box className="main-answer">
+        <Typography variant='h3'
           style={{
             fontSize: "22px",
             margin: "10px 0",
@@ -227,7 +338,7 @@ const getSingleQuestion =async () =>{
           }}
         >
           Your Answer
-        </h3>
+        </Typography>
         <TextareaAutosize
           value={answer}
           style={{width:"100%",padding:"10px"}}
@@ -235,7 +346,7 @@ const getSingleQuestion =async () =>{
           onChange={(e)=>setAnswer(e.target.value)}
 
         />
-      </div>
+      </Box>
       <button
         onClick={handleAddAnswer}
         style={{
@@ -245,7 +356,7 @@ const getSingleQuestion =async () =>{
       >
         Post your answer
       </button>
-    </div>
+    </Box>
   );
 }
 

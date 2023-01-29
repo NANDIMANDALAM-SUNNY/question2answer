@@ -1,18 +1,12 @@
 .all-questions {
     display: flex;
-    /* flex-direction: column; */
     width: 100%;
     padding: 20px 0px;
     border-bottom: 1px solid #eee;
-    width: 100%;
   }
   
   .all-questions-container {
     display: flex;
-    flex-direction: column;
-    flex-direction: row;
-    /* align-items: center; */
-    justify-content: space-between;
     width: 100%;
   }
   
