@@ -7,7 +7,7 @@ import AskMeAnything from './AskMeAnything';
 const MainChat = () => {
 
 const configuration = new Configuration({
-  
+  apiKey: process.env.REACT_APP_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 const [option, setOption] = useState({});
