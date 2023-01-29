@@ -28,7 +28,7 @@ const verifyToken = async (req,res)=>{
 const handleSubmit =async ()=>{
   try {
     setPassword('')
-      await axios.post(`http://localhost:7000/users/new-password/${token}`,{"password":password})
+      await axios.post(`${url}users/new-password/${token}`,{"password":password})
       .then((res)=>{
         setNotification(res.data.message)
       })
