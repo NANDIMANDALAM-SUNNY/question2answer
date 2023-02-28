@@ -205,6 +205,7 @@ notifications()
               onBlur={handleBlur}
               value={values.email}
             />
+            <p>email - demoguvilogin@gmail.com</p>
               {errors.email && touched.email && <p style={{fontSize:"bold",color:"red"}} >{errors.email}</p>}
             <TextField
               fullWidth
@@ -230,6 +231,7 @@ notifications()
                 ),
               }}
             />
+            <p>Password - demoguvi</p>
              {errors.password && touched.password && (<p style={{fontSize:"bold",color:"red"}}>{errors.password}</p>)}                           
           </Box>
 
