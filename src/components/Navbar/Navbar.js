@@ -141,9 +141,9 @@ const handlelogout = () =>{
 
               />
           </Box>
-          <Box sx={{marginRight:"20px"}}>
+          {/* <Box sx={{marginRight:"20px"}}>
           <Typography sx={{cursor:"pointer"}} onClick={()=>navigate('/trysomethingnew')} >Super</Typography>
-          </Box>
+          </Box> */}
           <Box sx={{marginRight:"20px"}}>
           <Typography sx={{cursor:"pointer"}} onClick={()=>navigate('/services')} >Services</Typography>
           </Box>
